@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gallery - Mumbai Hacks 2024</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #a259ff;
+      --background-dark: #0b0c2a;
+      --background-light: #151635;
+      --text-light: #ddd;
+    }
+    body {
+      margin: 0;
+      font-family: 'Inter', Arial, sans-serif;
+      background-color: var(--background-dark);
+      color: white;
+      overflow-x: hidden;
+    }
+
+    .back-btn {
+      position: fixed;
+      top: 30px;
+      left: 30px;
+      background: rgba(21, 22, 53, 0.8);
+      border: 2px solid var(--primary-color);
+      color: white;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 24px;
+      transition: all 0.3s ease;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-decoration: none;
+    }
+    .back-btn:hover {
+      background: var(--primary-color);
+      color: var(--background-dark);
+      transform: scale(1.1);
+    }
+    
+    .page-header {
+        text-align: center;
+        padding: 80px 20px 60px;
+    }
+    .page-header h1 {
+        font-size: 3.5rem;
+        color: var(--primary-color);
+        margin: 0;
+    }
+    .page-header p {
+        font-size: 1.2rem;
+        color: var(--text-light);
+        margin-top: 15px;
+        max-width: 700px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    /* Timeline Styles */
+    .timeline {
+      position: relative;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 20px 80px;
+    }
+    
+    .timeline-item {
+      padding: 40px 0;
+      position: relative;
+      width: 50%;
+      opacity: 0;
+      transform: translateY(50px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+    .timeline-item.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .timeline-item::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: var(--background-dark);
+      border: 4px solid var(--primary-color);
+      top: 50%;
+      transform: translateY(-50%);
+      border-radius: 50%;
+      z-index: 2;
+    }
+
+    .left {
+      left: 0;
+      padding-right: 40px;
+      text-align: right;
+    }
+    .right {
+      left: 50%;
+      padding-left: 40px;
+    }
+
+    .left::after { right: -14px; }
+    .right::after { left: -14px; }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      width: 50%;
+      height: 120px;
+      border: 2px dashed rgba(162, 89, 255, 0.5);
+      top: 50%;
+      z-index: 1;
+    }
+
+    .left::before { right: 6px; border-left: none; border-bottom: none; border-radius: 0 40px 0 0; transform: translateY(-100%); }
+    .right::before { left: 6px; border-right: none; border-bottom: none; border-radius: 40px 0 0 0; }
+    
+    .timeline-item:first-child::before { display: none; }
+    
+    .timeline-content {
+      padding: 20px 30px;
+      background: var(--background-light);
+      position: relative;
+      border-radius: 16px;
+      border: 1px solid rgba(162, 89, 255, 0.3);
+      text-align: left;
+    }
+    /* NEW: Year Marker */
+    .timeline-year {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background: var(--primary-color);
+        color: var(--background-dark);
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 0.8rem;
+        font-weight: bold;
+    }
+
+    .timeline-content h2 { margin-top: 0; color: var(--primary-color); }
+    .timeline-content p { color: var(--text-light); line-height: 1.6; }
+    .image-gallery { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 20px; }
+    .image-gallery img { width: 100%; border-radius: 8px; object-fit: cover; aspect-ratio: 4/3; }
+
+    /* Responsive Timeline */
+    @media screen and (max-width: 768px) {
+      .timeline::after { content: ''; position: absolute; width: 4px; background-color: rgba(162, 89, 255, 0.3); top: 0; bottom: 0; left: 30px; margin-left: -2px; }
+      .timeline-item { width: 100%; padding-left: 70px; padding-right: 25px; }
+      .timeline-item::before { display: none; }
+      .left, .right { left: 0%; padding-left: 0; padding-right: 0; text-align: left;}
+      .left::after, .right::after { left: 21px; }
+    }
+  </style>
+</head>
+<body>
+
+  <a href="index.html" class="back-btn" title="Go Back">←</a>
+
+  <header class="page-header">
+    <h1>Mumbai Hacks 2024: The Rewind</h1>
+    <p>Relive the key moments from our incredible 2024 event, from the opening ceremony to the final winning pitch.</p>
+  </header>
+
+  <main class="timeline">
+    
+    <div class="timeline-item right">
+      <div class="timeline-content">
+        <span class="timeline-year">2024</span>
+        <h2>Opening Ceremony</h2>
+        <p>The event kicked off with an inspiring keynote, setting the stage for 48 hours of intense innovation and coding.</p>
+        <div class="image-gallery">
+          <img src="open.png" alt="Networking">
+          <img src="open2.png" alt="Presentation">
+        </div>
+      </div>
+    </div>
+
+    <div class="timeline-item left">
+      <div class="timeline-content">
+        <span class="timeline-year">2024</span>
+        <h2>Midnight Coding Sprint</h2>
+        <p>Fueled by pizza and passion, teams worked through the night, turning ambitious ideas into functional prototypes.</p>
+        <div class="image-gallery">
+          <img src="hack.png" alt="Team collaborating late">
+          <img src="hack2.png" alt="Code on screen">
+        </div>
+      </div>
+    </div>
+
+    <div class="timeline-item right">
+      <div class="timeline-content">
+        <span class="timeline-year">2024</span>
+        <h2>Mentorship Sessions</h2>
+        <p>Industry experts provided invaluable guidance, helping teams refine their projects and overcome technical hurdles.</p>
+        <div class="image-gallery">
+          <img src="mentor.png" alt="Mentor talking to a team">
+          <img src="mentor2.png" alt="Group discussion">
+        </div>
+      </div>
+    </div>
+
+    <div class="timeline-item left">
+      <div class="timeline-content">
+        <span class="timeline-year">2024</span>
+        <h2>Final Pitches</h2>
+        <p>The top teams presented their groundbreaking projects to a panel of judges, showcasing their hard work and creativity.</p>
+        <div class="image-gallery">
+          <img src="pitch.png" alt="Team presenting on stage">
+        </div>
+      </div>
+    </div>
+
+    <div class="timeline-item right">
+      <div class="timeline-content">
+        <span class="timeline-year">2024</span>
+        <h2>Award Ceremony</h2>
+        <p>Celebrating the winners and all participants for their incredible effort, dedication, and the innovative solutions they built.</p>
+        <div class="image-gallery">
+          <img src="award.png" alt="Receiving award">
+          <img src="award2.png" alt="Group photo of winners">
+        </div>
+      </div>
+    </div>
+
+  </main>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const timelineItems = document.querySelectorAll('.timeline-item');
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.1 // Trigger when 10% of the item is visible
+      });
+
+      timelineItems.forEach(item => {
+        observer.observe(item);
+      });
+    });
+  </script>
+
+</body>
+</html>
+

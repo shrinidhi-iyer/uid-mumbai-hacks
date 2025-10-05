@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Team - Code Conquest 2025</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #a259ff;
+      --background-dark: #0b0c2a;
+      --background-light: #151635;
+      --text-light: #ddd;
+    }
+    html {
+      scroll-behavior: smooth;
+    }
+    body {
+      margin: 0;
+      font-family: 'Inter', Arial, sans-serif;
+      background-color: var(--background-dark);
+      color: white;
+      overflow-x: hidden;
+    }
+
+    #matrix-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+
+    /* NEW: Back Button */
+    .back-btn {
+      position: fixed;
+      top: 30px;
+      left: 30px;
+      background: rgba(21, 22, 53, 0.8);
+      border: 2px solid var(--primary-color);
+      color: white;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 24px;
+      transition: all 0.3s ease;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-decoration: none;
+    }
+    .back-btn:hover {
+      background: var(--primary-color);
+      color: var(--background-dark);
+      transform: scale(1.1);
+    }
+    
+    .page-header {
+        text-align: center;
+        padding: 80px 20px 60px;
+        position: relative;
+        z-index: 1;
+    }
+    .page-header h1 {
+        font-size: 3.5rem;
+        color: var(--primary-color);
+        margin: 0;
+    }
+    .page-header p {
+        font-size: 1.2rem;
+        color: var(--text-light);
+        margin-top: 15px;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .team-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px 80px;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 30px;
+        position: relative;
+        z-index: 1;
+    }
+
+    .team-card {
+        background: rgba(21, 22, 53, 0.7);
+        border: 1px solid rgba(162, 89, 255, 0.3);
+        border-radius: 16px;
+        padding: 25px;
+        text-align: center;
+        backdrop-filter: blur(10px);
+        transition: all 0.3s ease;
+        animation: fadeIn 0.5s ease-out forwards;
+        opacity: 0;
+    }
+    .team-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        border-color: var(--primary-color);
+    }
+    .team-card-image {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        margin: 0 auto 20px auto;
+        overflow: hidden;
+        border: 4px solid var(--primary-color);
+        box-shadow: 0 0 20px rgba(162, 89, 255, 0.5);
+    }
+    .team-card-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    .team-card h3 {
+        margin: 15px 0 5px 0;
+        font-size: 1.4rem;
+        color: white;
+    }
+    .team-card p {
+        margin: 0;
+        font-size: 1rem;
+        color: var(--primary-color);
+        font-weight: 500;
+    }
+    
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* Animation delays for cards */
+    .team-card:nth-child(1) { animation-delay: 0.1s; }
+    .team-card:nth-child(2) { animation-delay: 0.2s; }
+    .team-card:nth-child(3) { animation-delay: 0.3s; }
+    .team-card:nth-child(4) { animation-delay: 0.4s; }
+    .team-card:nth-child(5) { animation-delay: 0.5s; }
+    .team-card:nth-child(6) { animation-delay: 0.6s; }
+    
+    @media (max-width: 768px) {
+        .page-header h1 { font-size: 2.5rem; }
+        .back-btn { top: 20px; left: 20px; width: 45px; height: 45px; font-size: 20px; }
+    }
+
+  </style>
+</head>
+<body>
+  <canvas id="matrix-canvas"></canvas>
+
+  <a href="index.html" class="back-btn" title="Go Back">←</a>
+
+  <header class="page-header">
+    <h1>Meet the Masterminds</h1>
+    <p>The dedicated and slightly chaotic team working behind the scenes to make Code Conquest an unforgettable experience.</p>
+  </header>
+
+  <main class="team-container">
+
+    <div class="team-card">
+      <div class="team-card-image">
+        <img src="https://upload.wikimedia.org/wikipedia/en/2/2f/Jerry_Mouse.png" alt="Team Member Jerry" onerror="this.onerror=null;this.src='https://placehold.co/150x150/964B00/ffffff?text=Jerry';">
+      </div>
+      <h3>Jerry Mouse</h3>
+      <p>Lead Mischief Coordinator</p>
+    </div>
+
+    <div class="team-card">
+      <div class="team-card-image">
+        <img src="https://upload.wikimedia.org/wikipedia/en/thumb/1/17/Bugs_Bunny.svg/1200px-Bugs_Bunny.svg.png" alt="Team Member Bugs Bunny" onerror="this.onerror=null;this.src='https://placehold.co/150x150/a9a9a9/ffffff?text=Bugs';">
+      </div>
+      <h3>Bugs Bunny</h3>
+      <p>Head of Witty Comebacks</p>
+    </div>
+
+    <div class="team-card">
+      <div class="team-card-image">
+        <img src="https://upload.wikimedia.org/wikipedia/en/thumb/f/f4/Daffy_Duck.svg/1200px-Daffy_Duck.svg.png" alt="Team Member Daffy Duck" onerror="this.onerror=null;this.src='https://placehold.co/150x150/000000/ffffff?text=Daffy';">
+      </div>
+      <h3>Daffy Duck</h3>
+      <p>Director of Despicable Deeds</p>
+    </div>
+
+    <div class="team-card">
+      <div class="team-card-image">
+        <img src="https://upload.wikimedia.org/wikipedia/en/thumb/0/02/Tweety.svg/1200px-Tweety.svg.png" alt="Team Member Tweety" onerror="this.onerror=null;this.src='https://placehold.co/150x150/FFFF00/000000?text=Tweety';">
+      </div>
+      <h3>Tweety Bird</h3>
+      <p>Senior Threat Analyst</p>
+    </div>
+    
+    <div class="team-card">
+      <div class="team-card-image">
+        <img src="https://upload.wikimedia.org/wikipedia/en/thumb/8/88/Porky_Pig.svg/1200px-Porky_Pig.svg.png" alt="Team Member Porky Pig" onerror="this.onerror=null;this.src='https://placehold.co/150x150/ffc0cb/000000?text=Porky';">
+      </div>
+      <h3>Porky Pig</h3>
+      <p>Chief of Concluding Remarks</p>
+    </div>
+
+  </main>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script>
+    // 3D Matrix Background
+    const canvas = document.getElementById('matrix-canvas');
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true });
+    
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setClearColor(0x0b0c2a, 1);
+
+    const charCount = 2000;
+    const particles = new THREE.BufferGeometry();
+    const positions = new Float32Array(charCount * 3);
+    const colors = new Float32Array(charCount * 3);
+
+    for (let i = 0; i < charCount; i++) {
+        positions[i * 3] = (Math.random() - 0.5) * 30; // x
+        positions[i * 3 + 1] = (Math.random() - 0.5) * 30; // y
+        positions[i * 3 + 2] = (Math.random() - 0.5) * 30; // z
+        
+        const color = new THREE.Color(0xa259ff);
+        colors[i * 3] = color.r;
+        colors[i * 3 + 1] = color.g;
+        colors[i * 3 + 2] = color.b;
+    }
+
+    particles.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    particles.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+    const material = new THREE.PointsMaterial({
+        size: 0.05,
+        vertexColors: true,
+        transparent: true,
+        opacity: 0.7
+    });
+
+    const points = new THREE.Points(particles, material);
+    scene.add(points);
+
+    camera.position.z = 10;
+    
+    const animate = () => {
+        requestAnimationFrame(animate);
+
+        points.rotation.y += 0.0005;
+        
+        const positions = particles.attributes.position.array;
+        for (let i = 0; i < charCount; i++) {
+            positions[i * 3 + 1] -= 0.01; // Move down
+            if (positions[i * 3 + 1] < -15) {
+                positions[i * 3 + 1] = 15; // Reset to top
+            }
+        }
+        particles.attributes.position.needsUpdate = true;
+        
+        renderer.render(scene, camera);
+    };
+
+    const onWindowResize = () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+    };
+
+    window.addEventListener('resize', onWindowResize, false);
+
+    animate();
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+

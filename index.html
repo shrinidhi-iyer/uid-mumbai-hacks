@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome to the Mumbai Hacks Project</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #a259ff;
+      --background-dark: #0b0c2a;
+      --success-color: #00ff88;
+    }
+    body {
+      margin: 0;
+      font-family: 'Inter', Arial, sans-serif;
+      background-color: var(--background-dark);
+      color: white;
+      overflow: hidden;
+    }
+    .intro-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: var(--background-dark);
+      z-index: 9999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+    .intro-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      align-items: center;
+      gap: 50px;
+      width: 100%;
+      max-width: 1200px;
+    }
+    .intro-text-content {
+      text-align: left;
+    }
+    #intro-text {
+      font-family: 'Source Code Pro', monospace;
+      color: var(--success-color);
+      font-size: 1.1rem;
+      white-space: pre-wrap;
+    }
+    .typed-cursor {
+      color: var(--success-color);
+    }
+    #enter-button {
+      background: transparent;
+      border: 2px solid var(--primary-color);
+      color: var(--primary-color);
+      padding: 15px 30px;
+      font-size: 1.2rem;
+      font-family: 'Inter', sans-serif;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 30px;
+      opacity: 0;
+      display: none;
+      transition: opacity 0.5s ease, box-shadow 0.3s ease, transform 0.3s ease;
+      box-shadow: 0 0 15px rgba(162, 89, 255, 0.5);
+      text-decoration: none;
+      text-align: center;
+    }
+    #enter-button.visible {
+      display: inline-block;
+      opacity: 1;
+    }
+    #enter-button:hover {
+        box-shadow: 0 0 30px rgba(162, 89, 255, 0.8);
+        transform: scale(1.05);
+    }
+    .intro-visual {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .intro-visual img {
+      width: 100%;
+      max-width: 300px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid var(--primary-color);
+      box-shadow: 0 0 40px rgba(162, 89, 255, 0.6);
+      animation: pulse 4s infinite ease-in-out;
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); box-shadow: 0 0 40px rgba(162, 89, 255, 0.6); }
+      50% { transform: scale(1.05); box-shadow: 0 0 60px rgba(162, 89, 255, 0.9); }
+      100% { transform: scale(1); box-shadow: 0 0 40px rgba(162, 89, 255, 0.6); }
+    }
+    @media (max-width: 900px) {
+      .intro-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      .intro-text-content {
+        text-align: center;
+        order: 2;
+      }
+      .intro-visual {
+        order: 1;
+        margin-bottom: 40px;
+      }
+       #intro-text {
+        text-align: left;
+        display: inline-block;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="intro-container">
+    <div class="intro-grid">
+      <div class="intro-text-content">
+        <span id="intro-text"></span>
+        <!-- This is now a link to your main page -->
+        <a href="inde.html" id="enter-button">Explore the Website</a>
+      </div>
+      <div class="intro-visual">
+        <img src="dev.png" alt="Hacker theme visual" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1550745165-9bc0b252726a?q=80&w=800';">
+      </div>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const enterButton = document.getElementById('enter-button');
+
+      new Typed('#intro-text', {
+        strings: [
+          'Initializing Mumbai Hacks v1.0...<br>Loading Modules:<br>`✓ Responsive Design (Mobile, Tablet, Desktop)`<br>`✓ Interactive JS Backgrounds (Constellation & 3D)`<br>`✓ Multi-Step Form with Real-Time Validation`<br>`✓ Persistent Light/Dark Theme (localStorage)`<br>`✓ Dynamic Content (Countdown, Gallery, FAQ)`<br>`✓ Advanced CSS (Animations, Grids, Flexbox)`<br><br><strong>Build complete.</strong>'
+          ],
+        typeSpeed: 30,
+        showCursor: true,
+        onComplete: function() {
+          if(document.querySelector('.typed-cursor')) {
+            document.querySelector('.typed-cursor').style.display = 'none';
+          }
+          enterButton.classList.add('visible');
+        }
+      });
+    });
+  </script>
+</body>
+</html>

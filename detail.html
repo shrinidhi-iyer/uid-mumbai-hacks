@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- IMPORTANT: Change the title for each event -->
+  <title>Code Debug Challenge - Bugfest 2.5</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <style>
+    :root {
+      --primary-color: #a259ff;
+      --background-dark: #0b0c2a;
+      --background-light: #151635;
+      --text-color: #ddd;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', Arial, sans-serif;
+      color: white;
+      overflow-x: hidden;
+      background-color: var(--background-dark);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%231a1c3e' fill-opacity='0.4'%3E%3Cpath d='M0 38.59l2.83-2.83 1.41 1.41L1.41 40H0v-1.41zM0 1.4l2.83 2.83 1.41-1.41L1.41 0H0v1.41zM38.59 40l-2.83-2.83 1.41-1.41L40 38.59V40h-1.41zM40 1.41l-2.83 2.83-1.41-1.41L38.59 0H40v1.41zM20 18.6l2.83-2.83 1.41 1.41L21.41 20l2.83 2.83-1.41 1.41L20 21.41l-2.83 2.83-1.41-1.41L18.59 20l-2.83-2.83 1.41-1.41L20 18.59z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+
+    /* Event Header */
+    .event-header { text-align: center; margin-bottom: 50px; }
+    .event-header .event-icon { font-size: 4rem; color: var(--primary-color); margin-bottom: 15px; }
+    .event-header h1 { font-size: 3rem; margin: 0; color: var(--primary-color); }
+    .event-header p { font-size: 1.2rem; margin-top: 10px; color: var(--text-color); }
+
+    /* Event Content Sections */
+    .event-section {
+      background: var(--background-light);
+      padding: 30px;
+      border-radius: 12px;
+      margin-bottom: 30px;
+      border: 1px solid rgba(162, 89, 255, 0.2);
+    }
+    .event-section h2 { font-size: 1.8rem; color: var(--primary-color); margin-top: 0; border-bottom: 2px solid var(--primary-color); padding-bottom: 10px; margin-bottom: 20px; }
+    .event-section p, .event-section li { font-size: 1rem; line-height: 1.6; color: var(--text-color); }
+    .event-section ul { list-style-type: '✓ '; padding-left: 20px; }
+    .event-section ul li { margin-bottom: 10px; }
+    
+    /* Enroll Button (Centered) */
+    .enroll-section { text-align: center; margin: 40px 0; }
+    .btn {
+      padding: 15px 40px; border: 2px solid var(--primary-color); border-radius: 8px;
+      cursor: pointer; font-size: 1.1rem; font-weight: bold; transition: all 0.3s ease;
+      background: var(--primary-color); color: var(--background-dark);
+    }
+    .btn:hover { background: #8a47e3; border-color: #8a47e3; }
+
+    /* Past Events Section */
+    .past-events-section h2 { text-align: center; }
+    .past-events-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+    }
+    .past-event-card { background: var(--background-light); border-radius: 12px; padding: 20px; text-align: center; border: 1px solid rgba(162, 89, 255, 0.2); }
+    .past-event-card h3 { font-size: 1.5rem; color: var(--primary-color); margin: 0 0 15px 0; }
+    .past-event-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 8px;
+      background-color: var(--background-dark);
+    }
+
+    /* Back Button */
+    .back-btn {
+      position: fixed; top: 20px; left: 20px; background: rgba(21, 22, 53, 0.8); border: 2px solid var(--primary-color); color: white;
+      width: 44px; height: 44px; border-radius: 50%; cursor: pointer; font-size: 20px; transition: all 0.3s ease; z-index: 1001;
+      backdrop-filter: blur(10px); display: flex; align-items: center; justify-content: center;
+    }
+    .back-btn:hover { background: var(--primary-color); color: var(--background-dark); }
+    
+    /* Enrollment Modal (Same as dup2.html) */
+    .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(5px); justify-content: center; align-items: center; z-index: 2000; }
+    .modal-content { background: var(--background-light); padding: 40px; border-radius: 16px; width: 90%; max-width: 500px; text-align: center; border: 1px solid var(--primary-color); box-shadow: 0 10px 30px rgba(0,0,0,0.5); position: relative; animation: fadeIn 0.3s ease-out; }
+    .modal-content h2 { font-size: 2rem; color: var(--primary-color); margin-top: 0; margin-bottom: 15px; }
+    .modal-content p { font-size: 1.1rem; color: var(--text-color); margin-bottom: 25px; }
+    .qr-code-container { padding: 15px; background: white; border-radius: 12px; display: inline-block; }
+    .qr-code-container img { width: 250px; height: 250px; display: block; }
+    .close-btn { position: absolute; top: 15px; right: 20px; font-size: 2.5rem; color: #fff; cursor: pointer; transition: color 0.3s ease; }
+    .close-btn:hover { color: var(--primary-color); }
+    @keyframes fadeIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+
+    @media (max-width: 768px) { .past-events-grid { grid-template-columns: 1fr; } .event-header h1 { font-size: 2rem; } }
+  </style>
+</head>
+<body>
+  
+  <button class="back-btn" onclick="window.location.href='learn_more_template.html'" title="Back to Events">←</button>
+
+  <div class="container">
+    
+    <!-- EDIT THIS SECTION FOR EACH EVENT -->
+    <header class="event-header">
+      <div class="event-icon"><i class="fa-solid fa-bug"></i></div>
+      <h1>Code Debug Challenge</h1>
+      <p>A true test of your debugging prowess.</p>
+    </header>
+
+    <main>
+      <section class="event-section">
+        <h2>About the Event</h2>
+        <p>
+          Welcome to the Code Debug Challenge! This event is designed for those who love to hunt for bugs and optimize code. You will be presented with several code snippets from various programming languages, each containing hidden logical or syntactical errors. Your mission is to find them, fix them, and make the code run as intended—all against the clock.
+        </p>
+      </section>
+
+      <section class="event-section">
+        <h2>Rules and Regulations</h2>
+        <ul>
+          <li>Participants will compete individually.</li>
+          <li>The challenge consists of 5 rounds with increasing difficulty.</li>
+          <li>Allowed languages: Python, JavaScript, and Java.</li>
+          <li>No external help or internet browsing is allowed during the competition.</li>
+          <li>Scoring is based on the number of bugs fixed and the time taken.</li>
+        </ul>
+      </section>
+
+      <section class="event-section">
+        <h2>Prizes</h2>
+        <ul>
+          <li><b>1st Place:</b> Mechanical Keyboard & $200 in Cloud Credits.</li>
+          <li><b>2nd Place:</b> High-Quality Headset & Bugfest Merchandise.</li>
+          <li><b>3rd Place:</b> $50 Gift Card & Certificate of Excellence.</li>
+        </ul>
+      </section>
+      <!-- END OF EDITABLE SECTION -->
+
+      <section class="enroll-section">
+        <button class="btn" onclick="openEnrollModal()">Enroll in this Event</button>
+      </section>
+
+      <section class="event-section past-events-section">
+        <h2>Glimpses from the Past</h2>
+        <div class="past-events-grid">
+          <div class="past-event-card">
+            <h3>2024</h3>
+            <!-- IMPORTANT: Replace this src with your image for the 2024 event -->
+            <img src="jam.png" alt="Bugfest 2024 Image">
+          </div>
+          <div class="past-event-card">
+            <h3>2023</h3>
+            <!-- IMPORTANT: Replace this src with your image for the 2023 event -->
+            <img src="jam2.png" alt="Bugfest 2023 Image">
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Enrollment Modal (Same as dup2.html) -->
+  <div id="enrollModal" class="modal-overlay">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeEnrollModal()">&times;</span>
+      <h2>Enroll Now</h2>
+      <p>Scan the QR code below to complete your payment and secure your spot!</p>
+      <div class="qr-code-container">
+        <!-- IMPORTANT: Replace this src with your actual QR code image link -->
+        <img src="https://placehold.co/250x250/ffffff/000000?text=Your+QR+Code" alt="Payment QR Code">
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script>
+    const enrollModal = document.getElementById('enrollModal');
+    function openEnrollModal() { enrollModal.style.display = 'flex'; }
+    function closeEnrollModal() { enrollModal.style.display = 'none'; }
+    window.onclick = function(event) { if (event.target == enrollModal) { closeEnrollModal(); } }
+  </script>
+
+</body>
+</html>
